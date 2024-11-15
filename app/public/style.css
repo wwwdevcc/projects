@@ -66,6 +66,68 @@ input[type="submit"]:active {
   box-shadow: 2px 2px 0 rgb(20, 20, 20);
 }
 
+.intro {
+  background-color: white;
+  padding: 1.5rem;
+  border: 2px solid rgb(20, 20, 20);
+  box-shadow: 6px 6px 0 rgb(20, 20, 20);
+  margin: 1.5rem 0 2.5rem 0;
+  font-size: 1.1rem;
+  position: relative;
+  overflow: hidden;
+  animation: subtle-bounce 3s infinite ease-in-out;
+}
+
+/* Decorative elements */
+.intro::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  width: calc(100% + 4px);
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    yellow,
+    yellow 10px,
+    rgb(20, 20, 20) 10px,
+    rgb(20, 20, 20) 20px
+  );
+}
+
+.intro::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: calc(100% + 4px);
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgb(20, 20, 20),
+    rgb(20, 20, 20) 10px,
+    yellow 10px,
+    yellow 20px
+  );
+}
+
+/* Side decorative bars */
+.intro {
+  border-right: 4px solid rgb(20, 20, 20);
+  border-left: 4px solid rgb(20, 20, 20);
+}
+
+@keyframes subtle-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+    box-shadow: 8px 8px 0 rgb(20, 20, 20);
+  }
+}
+
 .project {
   background: white;
   border: 1px solid rgb(20, 20, 20);

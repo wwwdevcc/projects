@@ -59,18 +59,19 @@ if (!is_array($projects)) {
     <body>
         <div class="content">
             <h1>WeDev Network Projects</h1>
-          
 
+             <p class="intro">Share your project ideas and find collaborators in our discord community! Whether you're looking to build something new or join an existing project, this is the place to connect.</p>
+          
             <h2>Add your project</h2>
             <form method="post">
                 <label>Title</label>
-                <input type="text" name="title">
+                <input type="text" name="title" placeholder="Project name">
                 <label>Description</label>
-                <textarea name="description"></textarea>
+                <textarea name="description" placeholder="Describe your project idea"></textarea>
                 <label>Tech stack</label>
-                <textarea name="stack"></textarea>
+                <textarea name="stack" placeholder="What tech stack do you want to use?"></textarea>
                 <label>Contact</label>
-                <input type="text" name="contact"></input>
+                <input type="text" name="contact" placeholder="Your discord username"></input>
                 <input type="submit" value="Add"></input>
             </form>
 
