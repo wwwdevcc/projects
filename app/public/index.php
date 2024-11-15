@@ -10,10 +10,10 @@ if (!file_exists($jsonFile)) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $project = [
-        'title' => $_POST["title"],
-        'description' => $_POST["description"],
-        'stack' => $_POST["stack"],
-        'contact' => $_POST["contact"]
+        'title' => substr($_POST["title"], 0, 200),
+        'description' => substr($_POST["description"], 0, 500),
+        'stack' => substr($_POST["stack"], 0, 500),
+        'contact' => substr($_POST["contact"], 0, 150),
     ];
 
     $fileHandle = fopen($jsonFile, 'c+');
@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         flock($fileHandle, LOCK_UN);    
 
-        header('Location: /');
+        header('Location: /#projects');
         exit;
     }
 
@@ -60,7 +60,12 @@ if (!is_array($projects)) {
     <div class="content">
         <h1>WeDev Network Projects</h1>
 
-        <p class="intro">Share your project ideas and find collaborators in our discord community! Whether you're looking to build something new or join an existing project, this is the place to connect.</p>
+        <p class="intro">
+            This is a showcases of projects that are seeking collaborators. If you're a developer looking to join forces, explore the projects listed here and reach out to the contact person to get started.
+        <br>
+            If you have your own project or idea that you'd like to share and find collaborators for, feel free to add it here. 
+            <a href="https://discord.gg/ypbQaP9e" target="_blank">Join us on Discord!</a>
+        </p>
 
         <section class="guide">
             <div class="guide-grid">
@@ -90,19 +95,22 @@ if (!is_array($projects)) {
             </div>
         </section>
 
-        <form method="post">
-            <h2>Add your project</h2>
-            <label>Title</label>
-            <input type="text" name="title" placeholder="Project name" required>
-            <label>Description</label>
-            <textarea name="description" placeholder="Describe your project idea" required></textarea>
-            <label>Tech stack</label>
-            <textarea name="stack" placeholder="What tech stack do you want to use?" required></textarea>
-            <label>Contact</label>
-            <input type="text" name="contact" placeholder="Your Discord username" required></input>
-            <p><small>* use your Discord username</small></p>
-            <input type="submit" value="Add"></input>
-        </form>
+        <details>
+            <summary>Add your project</summary>
+            <form method="post">
+                
+                <label>Title</label>
+                <input type="text" name="title" placeholder="Project name" maxlength="200" required>
+                <label>Description</label>
+                <textarea name="description" placeholder="Describe your project idea" maxlength="500" required></textarea>
+                <label>Tech stack</label>
+                <textarea name="stack" placeholder="What tech stack do you want to use?" maxlength="500" required></textarea>
+                <label>Contact</label>
+                <input type="text" name="contact" placeholder="Your Discord username" maxlength="150" required></input>
+                <p><small>* use your Discord username</small></p>
+                <input type="submit" value="Add"></input>
+            </form>
+        </details>
 
         <?php if (isset($error) && $error) { ?>
             <div>There was an error adding your project. Try again or contact us if the error persists.</div>
@@ -112,19 +120,23 @@ if (!is_array($projects)) {
             <div>There are no projects right now.</div>
         <?php } ?>
 
+        <a id="projects"></a>
         <?php foreach ($projects as $project) { ?>
             <div class="project">
                 <div class="project-title">
                     <div class="content"><?php echo htmlentities($project['title']); ?></div>
                 </div>
                 <div class="content project-details">
-                    <div><strong>Description:</strong><br> <?php echo htmlentities(nl2br($project['description'])); ?></div>
-                    <div><strong>Stack:</strong><br> <?php echo htmlentities(nl2br($project['stack'])); ?></div>
-                    <div><strong>Contact:</strong><br> <?php echo htmlentities($project['contact']); ?></div>
+                    <div><strong>Description:</strong><br> <?php echo nl2br(htmlentities($project['description'])); ?></div>
+                    <div><strong>Stack:</strong><br> <?php echo nl2br(htmlentities($project['stack'])); ?></div>
+                    <div><strong>Contact:</strong> <?php echo htmlentities($project['contact']); ?></div>
                 </div>
             </div>
         <?php } ?>
     </div>
+    <footer>
+        <small>WebDev Network 2024</small>
+    </footer>
 </body>
 
 </html>

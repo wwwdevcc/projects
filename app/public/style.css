@@ -17,9 +17,26 @@ body {
 
 form {
   padding: 1.5rem;
-  border: 1px solid rgb(20, 20, 20);
   background-color: white;
   margin-bottom: 1.5rem;
+}
+
+details {
+  background-color: white;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgb(20, 20, 20);
+}
+
+summary {
+  font-weight: bold;
+  font-size: 1.4rem;
+  line-height: 1.4rem;
+  padding: 1.5rem;
+  cursor: pointer;
+}
+
+summary:hover, details[open] summary {
+  background-color: #F3F5EB;
 }
 
 label {
@@ -53,6 +70,12 @@ textarea {
   resize: vertical;
 }
 
+footer {
+  margin: 1.5rem 0;
+  text-align:center;
+}
+
+
 input, textarea {
   font-family: inherit;
   font-size: inherit;
@@ -62,7 +85,7 @@ input, textarea {
 input[type="submit"] {
   background-color: rgb(20, 20, 20);
   color: white;
-  border: 1px solid rgb(20, 20, 20);
+  border: 2px solid rgb(20, 20, 20);
   padding: 0.5rem 1.5rem;
   font-size: 0.9rem;
   font-weight: 600;
@@ -73,6 +96,8 @@ input[type="submit"] {
 input[type="submit"]:hover {
   transform: translate(+4px, -4px);
   box-shadow: 4px 4px 0 rgb(20, 20, 20);
+  background-color: white;
+  color: rgb(20, 20, 20);;
 }
 
 input[type="submit"]:active {
@@ -84,7 +109,7 @@ input[type="submit"]:active {
   background-color: white;
   padding: 1.5rem;
   border: 1px solid rgb(20, 20, 20);
-  margin: 1.5rem 0 2.5rem 0;
+  margin: 1.5rem 0 1.5rem 0;
   font-size: 1.1rem;
   position: relative;
   overflow: hidden;
@@ -155,7 +180,7 @@ input[type="submit"]:active {
 .project {
   background: white;
   border: 1px solid rgb(20, 20, 20);
-  margin-bottom: 2.4rem;
+  margin-bottom: 1.5rem;
 }
 
 .project-title {
