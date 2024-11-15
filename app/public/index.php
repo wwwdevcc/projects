@@ -1,5 +1,13 @@
 <?php
 
+# TODO:
+# - style form
+# - make input fields mandatory (html validation is fine, no need js)
+# - improve style
+# - add information text so users know what is this and how to use it
+# - check for errors when writing to the json file
+# - repopulate the form with the data and display error if could not save data
+
 $jsonFile = '../data/projects.json';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -13,18 +21,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $jsonData = file_get_contents($jsonFile);
     $projects = json_decode($jsonData, true);
     $projects[] = $project;
-    $jsonData = json_encode($project, JSON_PRETTY_PRINT);
+    $jsonData = json_encode($projects, JSON_PRETTY_PRINT);
     file_put_contents($jsonFile, $jsonData);
+    header('Location: /');
+    exit;
 }
 
-$project = [[
-    'title' => 'Project name',
-    'description' => 'Project description',
-    'stack' => 'Tech stack',
-    'contact' => 'Contact name',
-]];
-
+// Add a project if the data file does not exist for testing
 if (!file_exists($jsonFile)) {
+    $project = [[
+        'title' => 'Project name',
+        'description' => 'Project description',
+        'stack' => 'Tech stack',
+        'contact' => 'Contact name',
+    ]];
+    
     echo "file does not exist, creating...";
     $jsonData = json_encode($project, JSON_PRETTY_PRINT);
     file_put_contents($jsonFile, $jsonData);
@@ -53,8 +64,8 @@ if (!is_array($projects)) {
                         <div class="content"><?php echo $project['title']; ?></div>
                     </div>
                     <div class="content">
-                        <div><?php echo $project['description']; ?></div>
-                        <div><?php echo $project['stack']; ?></div>
+                        <div><?php echo nl2br($project['description']); ?></div>
+                        <div><?php echo nl2br($project['stack']); ?></div>
                         <div><?php echo $project['contact']; ?></div>
                     </div>
                 </div>
@@ -70,6 +81,7 @@ if (!is_array($projects)) {
                 <textarea name="stack"></textarea>
                 <label>Contact</label>
                 <input type="tezxt" name="contact"></input>
+                <input type="submit" value="add"></input>
             </form>
         </div>
     </body>

@@ -8,6 +8,18 @@ body {
     line-height: 1.2rem;
 }
 
+label,
+input,
+textarea {
+    display: block;
+}
+
+input,
+textarea {
+    margin-bottom: 1.2rem;
+
+}
+
 .content {
     padding: 3rem;
 }
@@ -15,6 +27,7 @@ body {
 .project {
     border: 1px solid rgb(20,20,20);
     box-shadow: 10px 10px 0 rgb(20,20,20);
+    margin-bottom: 2.4rem;
 }
 
 .project-title {
