@@ -61,7 +61,7 @@ if (!is_array($projects)) {
         <h1>WeDev Network Projects</h1>
 
         <p class="intro">
-            This is a showcases of projects that are seeking collaborators. If you're a developer looking to join forces, explore the projects listed here and reach out to the contact person to get started.
+            This is a showcase of projects that are seeking collaborators. If you're a developer looking to join forces, explore the projects listed here and reach out to the contact person to get started.
         <br>
             If you have your own project or idea that you'd like to share and find collaborators for, feel free to add it here. 
             <a href="https://discord.gg/ypbQaP9e" target="_blank">Join us on Discord!</a>
