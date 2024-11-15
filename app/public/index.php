@@ -7,6 +7,7 @@
 # - add information text so users know what is this and how to use it
 # - check for errors when writing to the json file
 # - repopulate the form with the data and display error if could not save data
+# - improve the README file
 
 $jsonFile = '../data/projects.json';
 
