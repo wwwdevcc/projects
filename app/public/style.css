@@ -111,10 +111,68 @@ input[type="submit"]:active {
   );
 }
 
-/* Side decorative bars */
 .intro {
   border-right: 4px solid rgb(20, 20, 20);
   border-left: 4px solid rgb(20, 20, 20);
+}
+
+.guide {
+  max-width: 64rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem;
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .guide-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.guide-card {
+  border: 2px solid black;
+  border-radius: 0.5rem;
+}
+
+.guide-content {
+  padding: 1.5rem;
+}
+
+.icon {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+.guide-content h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.guide-content p {
+  font-size: 1rem;
+}
+
+.guide-note {
+  border: 2px solid black;
+  border-radius: 0.5rem;
+  background-color: yellow;
+  padding: 0 1rem;
+}
+
+.guide-note p {
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
 @keyframes subtle-bounce {
