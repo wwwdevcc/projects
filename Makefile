@@ -1,6 +1,3 @@
-# Run a command in the app container
-docker-exec = docker compose exec app /bin/bash -c "$1"
-
 # Start containers
 up:
 	docker compose up -d

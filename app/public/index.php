@@ -1,15 +1,12 @@
 <?php
 
-# TODO:
-# - style form
-# - make input fields mandatory (html validation is fine, no need js)
-# - improve style
-# - add information text so users know what is this and how to use it
-# - check for errors when writing to the json file
-# - repopulate the form with the data and display error if could not save data
-# - improve the README file
-
 $jsonFile = '../data/projects.json';
+$projectsLimit = 100;
+
+// make sure the data file exists.
+if (!file_exists($jsonFile)) {
+    touch($jsonFile);
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $project = [
@@ -19,35 +16,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'contact' => $_POST["contact"]
     ];
 
-    $jsonData = file_get_contents($jsonFile);
-    $projects = json_decode($jsonData, true);
-    $projects[] = $project;
-    $jsonData = json_encode($projects, JSON_PRETTY_PRINT);
-    file_put_contents($jsonFile, $jsonData);
-    header('Location: /');
-    exit;
-}
+    $fileHandle = fopen($jsonFile, 'c+');
+    if (flock($fileHandle, LOCK_EX)) { 
+        $jsonData = file_get_contents($jsonFile);
+        $projects = json_decode($jsonData, true);
+        if (!is_array($projects)) {
+            $projects = [];
+        }
 
-// Add a project if the data file does not exist for testing
-if (!file_exists($jsonFile)) {
-    $project = [[
-        'title' => 'Project name',
-        'description' => 'Project description',
-        'stack' => 'Tech stack',
-        'contact' => 'Contact name',
-    ]];
+        array_unshift($projects, $project);
 
-    echo "file does not exist, creating...";
-    $jsonData = json_encode($project, JSON_PRETTY_PRINT);
-    file_put_contents($jsonFile, $jsonData);
+        // limit the number of projects. Older projects get discarded. 
+        if(count($projects) > $projectsLimit) {
+            $jsonData = array_slice($jsonData, 0, $projectsLimit);
+        }
+
+        $jsonData = json_encode($projects, JSON_PRETTY_PRINT);
+        file_put_contents($jsonFile, $jsonData);
+
+        flock($fileHandle, LOCK_UN);    
+
+        header('Location: /');
+        exit;
+    }
+
+    $error = true;
 }
 
 $jsonData = file_get_contents($jsonFile);
 $projects = json_decode($jsonData, true);
-
 if (!is_array($projects)) {
-    echo "No projects";
-    exit;
+    $projects = [];
 }
 ?>
 
@@ -97,25 +96,33 @@ if (!is_array($projects)) {
         <h2>Add your project</h2>
         <form method="post">
             <label>Title</label>
-            <input type="text" name="title" placeholder="Project name">
+            <input type="text" name="title" placeholder="Project name" required>
             <label>Description</label>
-            <textarea name="description" placeholder="Describe your project idea"></textarea>
+            <textarea name="description" placeholder="Describe your project idea" required></textarea>
             <label>Tech stack</label>
-            <textarea name="stack" placeholder="What tech stack do you want to use?"></textarea>
+            <textarea name="stack" placeholder="What tech stack do you want to use?" required></textarea>
             <label>Contact</label>
-            <input type="text" name="contact" placeholder="Your discord username"></input>
+            <input type="text" name="contact" placeholder="Your discord username" required></input>
             <input type="submit" value="Add"></input>
         </form>
+
+        <?php if (isset($error) && $error) { ?>
+            <div>There was an error adding your project. Try again or contact us if the error persists.</div>
+        <?php } ?>
+
+        <?php if (empty($projects)) { ?>
+            <div>There are no projects right now.</div>
+        <?php } ?>
 
         <?php foreach ($projects as $project) { ?>
             <div class="project">
                 <div class="project-title">
-                    <div class="content"><?php echo $project['title']; ?></div>
+                    <div class="content"><?php echo htmlentities($project['title']); ?></div>
                 </div>
                 <div class="content">
-                    <div><strong>Description:</strong> <?php echo nl2br($project['description']); ?></div>
-                    <div><strong>Stack:</strong> <?php echo nl2br($project['stack']); ?></div>
-                    <div><strong>Contact:</strong> <?php echo $project['contact']; ?></div>
+                    <div><strong>Description:</strong> <?php echo htmlentities(nl2br($project['description'])); ?></div>
+                    <div><strong>Stack:</strong> <?php echo htmlentities(nl2br($project['stack'])); ?></div>
+                    <div><strong>Contact:</strong> <?php echo htmlentities($project['contact']); ?></div>
                 </div>
             </div>
         <?php } ?>
