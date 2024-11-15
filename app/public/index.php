@@ -55,22 +55,11 @@ if (!is_array($projects)) {
     <meta charset="UTF-8">
     <title>WeDev Network Projects</title>
     <meta name="description" content="WebDev network community projects">
-    <link rel="stylesheet" href="style.css?v=0.2">
+    <link rel="stylesheet" href="style-test.css?v=0.2">
     <body>
         <div class="content">
             <h1>WeDev Network Projects</h1>
-            <?php foreach($projects as $project) { ?>
-                <div class="project">
-                    <div class="project-title">
-                        <div class="content"><?php echo $project['title']; ?></div>
-                    </div>
-                    <div class="content">
-                        <div><?php echo nl2br($project['description']); ?></div>
-                        <div><?php echo nl2br($project['stack']); ?></div>
-                        <div><?php echo $project['contact']; ?></div>
-                    </div>
-                </div>
-            <?php } ?>
+          
 
             <h2>Add your project</h2>
             <form method="post">
@@ -81,9 +70,22 @@ if (!is_array($projects)) {
                 <label>Tech stack</label>
                 <textarea name="stack"></textarea>
                 <label>Contact</label>
-                <input type="tezxt" name="contact"></input>
-                <input type="submit" value="add"></input>
+                <input type="text" name="contact"></input>
+                <input type="submit" value="Add"></input>
             </form>
+
+              <?php foreach($projects as $project) { ?>
+                <div class="project">
+                    <div class="project-title">
+                        <div class="content"><?php echo $project['title']; ?></div>
+                    </div>
+                    <div class="content">
+                        <div><strong>Description:</strong> <?php echo nl2br($project['description']); ?></div>
+                        <div><strong>Stack:</strong> <?php echo nl2br($project['stack']); ?></div>
+                        <div><strong>Contact:</strong> <?php echo $project['contact']; ?></div>
+                    </div>
+                </div>
+            <?php } ?>
         </div>
     </body>
 </html>

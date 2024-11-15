@@ -1,37 +1,82 @@
 body {
-    padding: 0;
-    margin: 0;
-    background-color: rgb(245,245,245);
-    color: rgb(20,20,20);
-    font-family: Seravek, 'Gill Sans Nova', Ubuntu, Calibri, 'DejaVu Sans', source-sans-pro, sans-serif;
-    font-size: 1.2rem;
-    line-height: 1.2rem;
-}
-
-label,
-input,
-textarea {
-    display: block;
-}
-
-input,
-textarea {
-    margin-bottom: 1.2rem;
-
+  padding: 0;
+  margin: 0;
+  background-color: rgb(245, 245, 245);
+  color: rgb(20, 20, 20);
+  font-family: Seravek, "Gill Sans Nova", Ubuntu, Calibri, "DejaVu Sans",
+    source-sans-pro, sans-serif;
+  font-size: 1rem;
+  line-height: 1.4;
 }
 
 .content {
-    padding: 3rem;
+  padding: 1.5rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+form {
+  padding: 1.5rem;
+  border: 1px solid rgb(20, 20, 20);
+  box-shadow: 6px 6px 0 rgb(20, 20, 20);
+  margin-bottom: 1.5rem;
+}
+
+label {
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgb(20, 20, 20);
+  border-radius: 3px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+input[type="submit"] {
+  background-color: yellow;
+  border: 1px solid rgb(20, 20, 20);
+  padding: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 rgb(20, 20, 20);
+  transition: transform 200ms, box-shadow 200ms;
+}
+
+input[type="submit"]:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 4px 4px 0 rgb(20, 20, 20);
+}
+
+input[type="submit"]:active {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 rgb(20, 20, 20);
 }
 
 .project {
-    border: 1px solid rgb(20,20,20);
-    box-shadow: 10px 10px 0 rgb(20,20,20);
-    margin-bottom: 2.4rem;
+  background: white;
+  border: 1px solid rgb(20, 20, 20);
+  box-shadow: 10px 10px 0 rgb(20, 20, 20);
+  margin-bottom: 2.4rem;
 }
 
 .project-title {
-    border-bottom: 1px solid rgb(20,20,20);
-    background-color: yellow;
-    font-size: 1.4rem;
+  border-bottom: 1px solid rgb(20, 20, 20);
+  background-color: yellow;
+  font-size: 1.4rem;
+  padding: 0.75rem;
+  font-weight: 600;
 }
