@@ -55,7 +55,7 @@ if (!is_array($projects)) {
     <meta charset="UTF-8">
     <title>WeDev Network Projects</title>
     <meta name="description" content="WebDev network community projects">
-    <link rel="stylesheet" href="style-test.css?v=0.2">
+    <link rel="stylesheet" href="style.css?v=0.2">
     <body>
         <div class="content">
             <h1>WeDev Network Projects</h1>
