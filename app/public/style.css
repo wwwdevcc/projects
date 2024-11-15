@@ -1,7 +1,7 @@
 body {
   padding: 0;
   margin: 0;
-  background-color: rgb(245, 245, 245);
+  background-color: #F6F4EF;
   color: rgb(20, 20, 20);
   font-family: Seravek, "Gill Sans Nova", Ubuntu, Calibri, "DejaVu Sans",
     source-sans-pro, sans-serif;
@@ -18,7 +18,7 @@ body {
 form {
   padding: 1.5rem;
   border: 1px solid rgb(20, 20, 20);
-  box-shadow: 6px 6px 0 rgb(20, 20, 20);
+  background-color: white;
   margin-bottom: 1.5rem;
 }
 
@@ -26,6 +26,14 @@ label {
   margin-bottom: 0.25rem;
   font-weight: 600;
   font-size: 1.1rem;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  margin-top: 0;
 }
 
 input[type="text"],
@@ -45,70 +53,41 @@ textarea {
   resize: vertical;
 }
 
+input, textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
 input[type="submit"] {
-  background-color: yellow;
+  background-color: rgb(20, 20, 20);
+  color: white;
   border: 1px solid rgb(20, 20, 20);
   padding: 0.5rem 1.5rem;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 3px 3px 0 rgb(20, 20, 20);
   transition: transform 200ms, box-shadow 200ms;
 }
 
 input[type="submit"]:hover {
-  transform: translate(-4px, -4px);
+  transform: translate(+4px, -4px);
   box-shadow: 4px 4px 0 rgb(20, 20, 20);
 }
 
 input[type="submit"]:active {
   transform: translate(1px, 1px);
-  box-shadow: 2px 2px 0 rgb(20, 20, 20);
+  box-shadow: 4px 4px 0 rgb(20, 20, 20);
 }
 
 .intro {
   background-color: white;
   padding: 1.5rem;
-  border: 2px solid rgb(20, 20, 20);
-  box-shadow: 6px 6px 0 rgb(20, 20, 20);
+  border: 1px solid rgb(20, 20, 20);
   margin: 1.5rem 0 2.5rem 0;
   font-size: 1.1rem;
   position: relative;
   overflow: hidden;
-  animation: subtle-bounce 3s infinite ease-in-out;
-}
-
-/* Decorative elements */
-.intro::before {
-  content: "";
-  position: absolute;
-  left: -2px;
-  top: -2px;
-  width: calc(100% + 4px);
-  height: 4px;
-  background: repeating-linear-gradient(
-    90deg,
-    yellow,
-    yellow 10px,
-    rgb(20, 20, 20) 10px,
-    rgb(20, 20, 20) 20px
-  );
-}
-
-.intro::after {
-  content: "";
-  position: absolute;
-  right: -2px;
-  bottom: -2px;
-  width: calc(100% + 4px);
-  height: 4px;
-  background: repeating-linear-gradient(
-    90deg,
-    rgb(20, 20, 20),
-    rgb(20, 20, 20) 10px,
-    yellow 10px,
-    yellow 20px
-  );
 }
 
 .intro {
@@ -120,7 +99,6 @@ input[type="submit"]:active {
   max-width: 64rem;
   margin-left: auto;
   margin-right: auto;
-  padding: 1.5rem;
 }
 
 .guide-grid {
@@ -137,8 +115,9 @@ input[type="submit"]:active {
 }
 
 .guide-card {
-  border: 2px solid black;
-  border-radius: 0.5rem;
+  border: 1px solid black;
+  text-align: center;
+  background-color: white;
 }
 
 .guide-content {
@@ -149,8 +128,7 @@ input[type="submit"]:active {
   display: block;
   font-size: 2rem;
   margin-bottom: 1rem;
-  width: 2rem;
-  height: 2rem;
+  text-align: center;
 }
 
 .guide-content h3 {
@@ -164,9 +142,8 @@ input[type="submit"]:active {
 }
 
 .guide-note {
-  border: 2px solid black;
-  border-radius: 0.5rem;
-  background-color: yellow;
+  border: 1px solid black;
+  background-color: #dde6e7;
   padding: 0 1rem;
 }
 
@@ -175,28 +152,22 @@ input[type="submit"]:active {
   font-weight: 500;
 }
 
-@keyframes subtle-bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
-    box-shadow: 8px 8px 0 rgb(20, 20, 20);
-  }
-}
-
 .project {
   background: white;
   border: 1px solid rgb(20, 20, 20);
-  box-shadow: 10px 10px 0 rgb(20, 20, 20);
   margin-bottom: 2.4rem;
 }
 
 .project-title {
-  border-bottom: 1px solid rgb(20, 20, 20);
-  background-color: yellow;
+  background-color: #dde6e7;
   font-size: 1.4rem;
   padding: 0.75rem;
   font-weight: 600;
+}
+
+.project-details div {
+  margin-bottom: 1.4rem;
+}
+.project-details div:last-child {
+  margin-bottom: 0;
 }
