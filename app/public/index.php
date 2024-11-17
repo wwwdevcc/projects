@@ -9,6 +9,13 @@ if (!file_exists($jsonFile)) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // Redirect back home if honeypot field is checked.
+    if(isset($_POST['hp'])) {
+        header('Location: /');
+        exit;
+    }
+
     $project = [
         'title' => substr($_POST["title"], 0, 200),
         'description' => substr($_POST["description"], 0, 500),
@@ -99,7 +106,6 @@ if (!is_array($projects)) {
         <details>
             <summary>Add your project</summary>
             <form method="post">
-                
                 <label>Title</label>
                 <input type="text" name="title" placeholder="Project name" maxlength="200" required>
                 <label>Description</label>
@@ -109,6 +115,7 @@ if (!is_array($projects)) {
                 <label>Contact</label>
                 <input type="text" name="contact" placeholder="Your Discord username" maxlength="150" required></input>
                 <p><small>* use your Discord username</small></p>
+                <input type="checkbox" class="hidden" name="hp" value=1></input>
                 <input type="submit" value="Add"></input>
             </form>
         </details>

@@ -119,6 +119,10 @@ input[type="submit"]:active {
   box-shadow: 4px 4px 0 rgb(20, 20, 20);
 }
 
+.hidden {
+  display: none;
+}
+
 .intro {
   background-color: white;
   padding: 1.5rem;
