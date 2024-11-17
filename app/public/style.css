@@ -13,6 +13,7 @@ body {
   padding: 1.5rem;
   max-width: 600px;
   margin: 0 auto;
+  word-wrap: break-word;
 }
 
 form {
@@ -37,6 +38,19 @@ summary {
 
 summary:hover, details[open] summary {
   background-color: #F3F5EB;
+}
+
+a {
+  text-decoration: none;
+  color: #E05E38;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+footer a:hover {
+  text-decoration: none;
 }
 
 label {
@@ -118,6 +132,14 @@ input[type="submit"]:active {
 .intro {
   border-right: 4px solid rgb(20, 20, 20);
   border-left: 4px solid rgb(20, 20, 20);
+}
+
+.intro p {
+  margin: 0;
+  margin-bottom: 1.5rem;
+}
+.intro p:last-child {
+  margin-bottom: 0;
 }
 
 .guide {
