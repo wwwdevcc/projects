@@ -58,11 +58,12 @@ if (!is_array($projects)) {
 ?>
 
 <html>
-<meta charset="UTF-8">
-<title>Projects Board - wwwdev.cc</title>
-<meta name="description" content="WebDev network community projects">
-<link rel="stylesheet" href="style.css?v=0.2">
-
+<head>
+    <meta charset="UTF-8">
+    <title>Projects Board - wwwdev.cc</title>
+    <meta name="description" content="WebDev network community projects">
+    <link rel="stylesheet" href="style.css?v=0.2">
+</head>
 <body>
     <div class="content">
         <h1>Projects Board</h1>
