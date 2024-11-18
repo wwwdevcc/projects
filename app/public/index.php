@@ -63,7 +63,7 @@ if (!is_array($projects)) {
     <meta charset="UTF-8">
     <title>Projects Board - wwwdev.cc</title>
     <meta name="description" content="WebDev network community projects">
-    <link rel="stylesheet" href="style.css?v=0.2">
+    <link rel="stylesheet" href="style.css?v=0.3">
 </head>
 <body>
     <div class="content">
@@ -109,17 +109,16 @@ if (!is_array($projects)) {
             <summary>Add your project</summary>
             <form method="post">
                 <label>Title</label>
-                <input type="text" name="title" placeholder="Project name" maxlength="200" required>
+                <input type="text" name="title" placeholder="Project name" maxlength="200" required></input>
                 <label>Description</label>
                 <textarea name="description" placeholder="Describe your project idea" maxlength="500" required></textarea>
                 <label>Tech stack</label>
                 <textarea name="stack" placeholder="What tech stack do you want to use?" maxlength="500" required></textarea>
+                <label>URL <small>(optional)</small></label>
+                <input type="url" name="url" placeholder="URL to your project" maxlength="500"></input>
                 <label>Contact</label>
                 <input type="text" name="contact" placeholder="Your Discord username" maxlength="150" required></input>
                 <p><small>* use your Discord username</small></p>
-
-                <label>URL</label>
-                <input type="text" name="url" placeholder="URL to your project" maxlength="500" required></input>
                 <input type="checkbox" class="hidden" name="hp" value=1></input>
                 <input type="submit" value="Add"></input>
             </form>

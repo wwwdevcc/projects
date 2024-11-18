@@ -59,6 +59,10 @@ label {
   font-size: 1.1rem;
 }
 
+label small {
+  font-weight: normal;
+}
+
 h1 {
   text-align: center;
 }
@@ -68,6 +72,7 @@ h2 {
 }
 
 input[type="text"],
+input[type="url"],
 textarea {
   width: 100%;
   padding: 0.5rem;
@@ -94,6 +99,7 @@ input, textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+  display: block;
 }
 
 input[type="submit"] {
