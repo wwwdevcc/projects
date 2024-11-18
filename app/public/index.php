@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'description' => substr($_POST["description"], 0, 500),
         'stack' => substr($_POST["stack"], 0, 500),
         'contact' => substr($_POST["contact"], 0, 150),
+        'url' => substr($_POST["url"], 0, 500),
     ];
 
     $fileHandle = fopen($jsonFile, 'c+');
@@ -116,6 +117,9 @@ if (!is_array($projects)) {
                 <label>Contact</label>
                 <input type="text" name="contact" placeholder="Your Discord username" maxlength="150" required></input>
                 <p><small>* use your Discord username</small></p>
+
+                <label>URL</label>
+                <input type="text" name="url" placeholder="URL to your project" maxlength="500" required></input>
                 <input type="checkbox" class="hidden" name="hp" value=1></input>
                 <input type="submit" value="Add"></input>
             </form>
@@ -139,6 +143,7 @@ if (!is_array($projects)) {
                     <div><strong>Description:</strong><br> <?php echo nl2br(htmlentities($project['description'])); ?></div>
                     <div><strong>Stack:</strong><br> <?php echo nl2br(htmlentities($project['stack'])); ?></div>
                     <div><strong>Contact:</strong> <?php echo htmlentities($project['contact']); ?></div>
+                    <div><strong>URL:</strong> <?php echo htmlentities($project['url']); ?></div>
                 </div>
             </div>
         <?php } ?>
