@@ -62,7 +62,7 @@ if (!is_array($projects)) {
 <head>
     <meta charset="UTF-8">
     <title>Projects Board - wwwdev.cc</title>
-    <meta name="description" content="WebDev network community projects">
+    <meta name="description" content="wwwdev.cc showcase of projects that are seeking collaborators">
     <link rel="stylesheet" href="style.css?v=0.3">
 </head>
 <body>
