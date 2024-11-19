@@ -155,8 +155,10 @@ if (!is_array($projects)) {
                 <div class="content project-details">
                     <div><strong>Description:</strong><br> <?php echo nl2br(htmlentities($project['description'])); ?></div>
                     <div><strong>Stack:</strong><br> <?php echo nl2br(htmlentities($project['stack'])); ?></div>
-                    <div><strong>Contact:</strong> <?php echo htmlentities($project['contact']); ?></div>
+                    <?php if($project['url'] != "") { ?>
                     <div><strong>URL:</strong> <?php echo htmlentities($project['url']); ?></div>
+                    <?php } ?>
+                    <div><strong>Contact:</strong> <?php echo htmlentities($project['contact']); ?></div>
                 </div>
             </div>
         <?php } ?>
