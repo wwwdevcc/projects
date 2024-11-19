@@ -1,5 +1,5 @@
+<?php include "header.php" ?>
 <?php
-
 $jsonFile = '../data/projects.json';
 $projectsLimit = 100;
 
@@ -58,15 +58,7 @@ if (!is_array($projects)) {
 }
 ?>
 
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Projects Board - wwwdev.cc</title>
-    <meta name="description" content="wwwdev.cc showcase of projects that are seeking collaborators">
-    <link rel="stylesheet" href="style.css?v=0.3">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-</head>
-<body>
+
     <div class="content">
         <div class="theme-control">
             <h1>Projects Board</h1>
@@ -112,6 +104,12 @@ if (!is_array($projects)) {
             </div>
         </section>
 
+        <?php
+        // Requiring login to add projects.
+        require_once "../src/auth/Auth.php";
+        $auth = new Auth("../data/users.json");
+        if ($auth->isAuthenticated()):
+        ?>
         <details>
             <summary>Add your project</summary>
             <form method="post">
@@ -130,6 +128,12 @@ if (!is_array($projects)) {
                 <input type="submit" value="Add"></input>
             </form>
         </details>
+        <?php else: ?>
+        <div class="please-login">
+            <p>Please Login to add a project.</p>
+            <a href="/login">Login</a>
+        </div>
+        <?php endif; ?>
 
         <?php if (isset($error) && $error) { ?>
             <div>There was an error adding your project. Try again or contact us if the error persists.</div>
@@ -163,7 +167,4 @@ if (!is_array($projects)) {
         <small>wwwdev.cc 2024</small>
     </footer>
 
-    <script src="theme.handler.js"></script>
-</body>
-
-</html>
+<?php include "footer.php" ?>

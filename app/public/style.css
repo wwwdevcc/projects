@@ -30,6 +30,73 @@
 	--inverse: #fff;
 }
 
+.navbar {
+	width: "100%";
+	padding: 12px;
+	background: var(--secondary);
+}
+
+.navbar ul {
+	max-width: 600px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0 auto;
+}
+
+.navbar ul div {
+		display: flex;
+}
+
+.navbar ul li {
+	list-style: none;
+}
+
+.navbar ul li a {
+    padding: 0 15px; 
+    text-decoration: none; 
+		color: var(--foreground);
+		transition: ease-in-out all 200ms;
+		cursor: pointer;
+}
+
+.navbar ul li a:hover {
+    color: var(--accent)
+}
+
+.please-login {
+	background: var(--card);
+	border: var(--border);
+	border-right: var(--thick-border);
+	border-left: var(--thick-border);
+	padding: 16;
+	text-align: center;
+	margin-bottom: 24px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.please-login > a {
+	background-color: var(--inverse);
+	color: var(--secondary);
+	border: 2px solid var(--inverse);
+	padding: 0.5rem 1.5rem;
+	font-size: 0.9rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: transform 200ms, box-shadow 200ms;
+}
+
+.please-login > a:hover {
+	transform: translate(+4px, -4px);
+	box-shadow: 4px 4px 0 var(--inverse);
+	background-color: var(--secondary);
+	color: var(--foreground);
+}
+
+
 .theme-control {
 	position: relative;
 }
@@ -46,7 +113,7 @@
 	border-radius: 0.4rem;
 	background: var(--inverse);
 	color: var(--primary);
-  transition: ease-in-out all 200ms;
+	transition: ease-in-out all 200ms;
 }
 
 #theme-toggle:hover {
@@ -129,7 +196,9 @@ h2 {
 
 input[type="text"],
 input[type="url"],
+input[type="password"],
 textarea {
+	color: var(--foreground);
 	width: 100%;
 	padding: 0.5rem;
 	margin-bottom: 1rem;
@@ -143,6 +212,7 @@ textarea {
 
 input[type="text"]::placeholder,
 input[type="url"]::placeholder,
+input[type="password"]::placeholder,
 textarea::placeholder {
 	color: var(--placeholder);
 	opacity: 1;
@@ -150,6 +220,7 @@ textarea::placeholder {
 
 input[type="text"]:focus,
 input[type="url"]:focus,
+input[type="password"]:focus,
 textarea:focus {
 	border-color: var(--accent);
 	outline: none;
@@ -299,5 +370,3 @@ input[type="submit"]:active {
 .project-details div:last-child {
 	margin-bottom: 0;
 }
-
-
