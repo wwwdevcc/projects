@@ -9,6 +9,12 @@ if($auth->isAuthenticated()) {
 }
 
 if($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && $_POST['action'] === "login") {
+	// Redirect back home if honeypot field is checked.
+	if(isset($_POST['hp'])) {
+		header('Location: /');
+		exit;
+	}
+
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 
@@ -36,6 +42,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && $_POST['a
         <input type="password" name="password" id="password" required>
         <br>
         <input type="hidden" name="action" value="login">
+		<input type="checkbox" class="hidden" name="hp" value=1></input>
         <input type="submit" value="Login"></input>
     </form>
 
