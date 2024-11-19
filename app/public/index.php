@@ -64,10 +64,17 @@ if (!is_array($projects)) {
     <title>Projects Board - wwwdev.cc</title>
     <meta name="description" content="wwwdev.cc showcase of projects that are seeking collaborators">
     <link rel="stylesheet" href="style.css?v=0.3">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
     <div class="content">
-        <h1>Projects Board</h1>
+        <div class="theme-control">
+            <h1>Projects Board</h1>
+            <button id="theme-toggle">
+                <i class="bx bx-sun" id="sun-icon" style="display:none;"></i>
+                <i class="bx bx-moon" id="moon-icon"></i>
+            </button>
+        </div>
         <div class="intro">
             <p>
                 This is a showcase of projects that are seeking collaborators. If you're a developer looking to join forces, explore the projects listed here and reach out to the contact person to get started.
@@ -155,6 +162,8 @@ if (!is_array($projects)) {
         </p>
         <small>wwwdev.cc 2024</small>
     </footer>
+
+    <script src="theme.handler.js"></script>
 </body>
 
 </html>
