@@ -30,7 +30,7 @@ if($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["action"]) && $_POST['a
 						<p style="color: red;"><?= htmlspecialchars($error); ?></p>
 				<?php endif; ?>
         <label for="username">Username:</label>
-        <input type="text" name="username" id="username" required>
+        <input type="text" name="username" id="username" required autofocus>
         <br>
         <label for="password">Password:</label>
         <input type="password" name="password" id="password" required>

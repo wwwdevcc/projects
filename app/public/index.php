@@ -1,12 +1,19 @@
 <?php include "header.php" ?>
 <?php
-$jsonFile = '../data/projects.json';
+$usersFile = '../data/users.json';
+$projectsFile = '../data/projects.json';
 $projectsLimit = 100;
 
-// make sure the data file exists.
-if (!file_exists($jsonFile)) {
-    touch($jsonFile);
+// make sure the projects file exists.
+if (!file_exists($projectsFile)) {
+    touch($projectsFile);
 }
+
+// make sure the users file exists.
+if (!file_exists($usersFile)) {
+    touch($usersFile);
+}
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -24,9 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'url' => substr($_POST["url"], 0, 500),
     ];
 
-    $fileHandle = fopen($jsonFile, 'c+');
+    $fileHandle = fopen($projectsFile, 'c+');
     if (flock($fileHandle, LOCK_EX)) { 
-        $jsonData = file_get_contents($jsonFile);
+        $jsonData = file_get_contents($projectsFile);
         $projects = json_decode($jsonData, true);
         if (!is_array($projects)) {
             $projects = [];
@@ -40,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $jsonData = json_encode($projects, JSON_PRETTY_PRINT);
-        file_put_contents($jsonFile, $jsonData);
+        file_put_contents($projectsFile, $jsonData);
 
         flock($fileHandle, LOCK_UN);    
 
@@ -51,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $error = true;
 }
 
-$jsonData = file_get_contents($jsonFile);
+$jsonData = file_get_contents($projectsFile);
 $projects = json_decode($jsonData, true);
 if (!is_array($projects)) {
     $projects = [];
@@ -131,7 +138,7 @@ if (!is_array($projects)) {
         <?php else: ?>
         <div class="please-login">
             <p>Please Login to add a project.</p>
-            <a href="/login">Login</a>
+            <a href="/login.php">Login</a>
         </div>
         <?php endif; ?>
 

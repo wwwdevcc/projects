@@ -10,7 +10,8 @@ class Auth {
 
         // Using simple json file for a fake database atm.
         if (file_exists($this->db)) {
-            $this->users = json_decode(file_get_contents($this->db), true);
+            $decodedJson = json_decode(file_get_contents($this->db), true);
+            $this->users = $decodedJson ?? [];
         } else {
             throw new Exception("DB file was not found");
         }
