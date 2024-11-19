@@ -69,10 +69,6 @@ if (!is_array($projects)) {
     <div class="content">
         <div class="theme-control">
             <h1>Projects Board</h1>
-            <button id="theme-toggle">
-                <i class="bx bx-sun" id="sun-icon" style="display:none;"></i>
-                <i class="bx bx-moon" id="moon-icon"></i>
-            </button>
         </div>
         <div class="intro">
             <p>

@@ -50,6 +50,7 @@
 
 .navbar ul li {
 	list-style: none;
+	align-content: center;
 }
 
 .navbar ul li a {
@@ -103,7 +104,7 @@
 }
 
 #theme-toggle {
-	position: absolute;
+	position: relative;
 	right: 0;
 	top: 50%;
 	transform: translateY(-50%);

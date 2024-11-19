@@ -29,6 +29,12 @@ if (session_status() === PHP_SESSION_NONE) {
                 <a href="/register.php">Register</a> 
             </li>
             <?php endif; ?>
+            <li>
+            <button id="theme-toggle">
+                <i class="bx bx-sun" id="sun-icon" style="display:none;"></i>
+                <i class="bx bx-moon" id="moon-icon"></i>
+            </button>
+            </li>
             </div>
 
         </ul>
