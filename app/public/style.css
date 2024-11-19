@@ -94,6 +94,7 @@
 	box-shadow: 4px 4px 0 var(--inverse);
 	background-color: var(--secondary);
 	color: var(--foreground);
+	text-decoration: none;
 }
 
 
