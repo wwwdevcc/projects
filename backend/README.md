@@ -4,8 +4,6 @@
 
 This API powers the core functionality of the platform, including project listings, user profiles, and collaboration requests. It serves as the foundation for the React-based frontend application, ensuring seamless data exchange and a robust, scalable backend architecture.
 
----
-
 ## Features
 
 -   RESTful API endpoints for resource management.
@@ -13,15 +11,11 @@ This API powers the core functionality of the platform, including project listin
 -   Centralized error handling for consistent API responses.
 -   Flexible and extensible architecture for future scalability.
 
----
-
 ## Requirements
 
 -   **PHP**: 8.1 or higher
 -   **Composer**: Latest version
 -   **SQLite** or another supported database
-
----
 
 ## Installation
 
