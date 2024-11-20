@@ -23,7 +23,7 @@ This API powers the core functionality of the platform, including project listin
 
     ```bash
     git clone https://github.com/wwwdevcc/projects.git
-    cd backend-project-hub
+    cd backend
     ```
 
 2. Install dependencies:
