@@ -21,6 +21,10 @@ class AuthenticatedSessionController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
+        if (!$user->hasVerifiedEmail()) {
+            return response()->json(['message' => 'Email not verified'], 403);
+        }
+
         $token = $user->createToken('authToken')->plainTextToken;
 
         $data = [
