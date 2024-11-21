@@ -21,6 +21,7 @@ export function Register(props: PaperProps) {
       email: '',
       username: '',
       password: '',
+      password_confirmation: '',
     },
     validate: zodResolver(registerSchema),
   })
@@ -72,6 +73,20 @@ export function Register(props: PaperProps) {
                 form.setFieldValue('password', event.currentTarget.value)
               }
               error={form.errors.password}
+              radius="md"
+            />
+            <PasswordInput
+              required
+              label="Confirm Password"
+              placeholder="Confirm your password"
+              value={form.values.password_confirmation}
+              onChange={(event) =>
+                form.setFieldValue(
+                  'password_confirmation',
+                  event.currentTarget.value
+                )
+              }
+              error={form.errors.password_confirmation}
               radius="md"
             />
             <Button type="submit" radius="sm">
