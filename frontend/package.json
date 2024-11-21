@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "vitest": "vitest run",
+    "vitest:watch": "vitest"
   },
   "dependencies": {
     "@mantine/core": "7.14.1",
@@ -23,6 +25,10 @@
     "@tanstack/eslint-plugin-query": "^5.60.1",
     "@tanstack/router-devtools": "^1.82.1",
     "@tanstack/router-plugin": "^1.81.9",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
     "@types/node": "^22.9.1",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
@@ -32,11 +38,14 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.7",
+    "jsdom": "^25.0.1",
     "postcss": "^8.4.38",
     "postcss-preset-mantine": "1.17.0",
     "postcss-simple-vars": "^7.0.1",
+    "prettier": "3.3.3",
     "typescript": "^5.5.2",
-    "vite": "^5.3.1"
+    "vite": "^5.3.1",
+    "vitest": "^2.1.5"
   },
   "packageManager": "yarn@4.5.1"
 }
