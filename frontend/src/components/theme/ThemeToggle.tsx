@@ -16,9 +16,9 @@ export function ThemeToggle() {
   return (
     <Button onClick={toggleColorScheme} variant="outline">
       {computedColorScheme === "dark" ? (
-        <Sun size="1.2rem" />
+        <Sun size="1.2rem" data-testid="sun"/>
       ) : (
-        <Moon size="1.2rem" />
+        <Moon size="1.2rem" data-testid="moon"/>
       )}
     </Button>
   );
