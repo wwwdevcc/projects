@@ -1,17 +1,14 @@
-import { createTheme, MantineProvider } from "@mantine/core";
+import { theme } from "@/theme";
+import { MantineProvider } from "@mantine/core";
+import "@mantine/core/styles.css";
+import { QueryClient } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
   createRootRouteWithContext,
   Link,
   Outlet,
 } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import "@mantine/core/styles.css";
-import { QueryClient } from "@tanstack/react-query";
-
-const theme = createTheme({
-  /** Put your mantine theme override here */
-});
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
