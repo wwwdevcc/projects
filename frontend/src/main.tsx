@@ -20,6 +20,12 @@ const router = createRouter({
   defaultPreloadStaleTime: 0,
 });
 
+declare module '@tanstack/react-router' {
+  interface Register {
+    router: typeof router
+  }
+}
+
 // Render the app
 const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {
