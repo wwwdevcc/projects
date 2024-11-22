@@ -9,7 +9,7 @@ import { QueryClient } from '@tanstack/react-query'
 import { AuthState } from '@/features/auth/hooks/use-auth'
 import '@mantine/notifications/styles.css'
 import { Notifications } from '@mantine/notifications'
-import { NotFound } from '@/components/NotFound'
+import { NotFound } from '@/components/NotFound/NotFound'
 
 export interface RouterContext {
   queryClient: QueryClient

@@ -27,7 +27,11 @@ export const api = ky.create({
     afterResponse: [
       async (_request, _options, response) => {
         if (response.status === 401) {
-          auth.removeToken()
+          notifications.show({
+            title: 'Error',
+            message: 'Unauthorized to make this action',
+            color: 'red',
+          })
         }
       },
     ],
