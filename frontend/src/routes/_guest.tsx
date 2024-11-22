@@ -1,17 +1,17 @@
 import { userQuery } from '@/features/auth/api/auth'
-import { Login } from '@/features/auth/login/Login'
 import { createFileRoute, redirect } from '@tanstack/react-router'
+import { Outlet } from '@tanstack/react-router'
 
-export const Route = createFileRoute('/login')({
+export const Route = createFileRoute('/_guest')({
   beforeLoad: async ({ context }) => {
     const user = await context.queryClient.ensureQueryData(userQuery)
-
     if (user) {
       throw redirect({
-        from: '/login',
         to: '/',
       })
     }
   },
-  component: Login,
+  component: () => {
+    return <Outlet />
+  },
 })
