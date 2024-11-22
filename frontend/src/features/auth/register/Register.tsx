@@ -1,6 +1,7 @@
 import { registerSchema } from '@/features/auth/shared/schema'
 import { RegisterFormValues } from '@/features/auth/shared/types'
 import {
+  Alert,
   Button,
   Container,
   Paper,
@@ -12,8 +13,10 @@ import {
   Title,
 } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
-import { Link } from '@tanstack/react-router'
-import classes from './Register.module.css'
+import { Link, useNavigate } from '@tanstack/react-router'
+import { useRegister } from '@/features/auth/api/auth'
+import { AlertCircle } from 'lucide-react'
+import { useDocumentTitle } from '@mantine/hooks'
 
 export function Register(props: PaperProps) {
   const form = useForm<RegisterFormValues>({
@@ -25,22 +28,43 @@ export function Register(props: PaperProps) {
     },
     validate: zodResolver(registerSchema),
   })
+  const navigate = useNavigate({ from: '/register' })
+  const registerFn = useRegister()
+
+  const handleSubmit = async (values: RegisterFormValues) => {
+    try {
+      await registerFn.mutateAsync(values)
+      navigate({ to: '/login' })
+    } catch (error) {
+      console.error('Registration failed:', error)
+    }
+  }
+  useDocumentTitle('Register')
 
   return (
     <Container size="xs" mt={40}>
       <Stack gap={4} mb={12}>
-        <Title ta="center" className={classes.title}>
-          Welcome, new user!
-        </Title>
+        <Title ta="center">Welcome, new user!</Title>
         <Text c="dimmed" size="sm" ta="center">
           Already have an account?{' '}
-          <Link from="/register" to="/login" className={classes.unstyled_link}>
+          <Link from="/register" to="/login" style={{ color: 'inherit' }}>
             Login
           </Link>
         </Text>
       </Stack>
       <Paper radius="md" p="xl" withBorder {...props}>
-        <form onSubmit={form.onSubmit((values) => console.log(values))}>
+        {registerFn.isError && (
+          <Alert
+            icon={<AlertCircle size={16} />}
+            color="red"
+            mb="md"
+            title="Registration Error"
+          >
+            {registerFn.error?.message ||
+              'An error occurred during registration'}
+          </Alert>
+        )}
+        <form onSubmit={form.onSubmit(handleSubmit)}>
           <Stack gap={16}>
             <TextInput
               required
@@ -52,6 +76,7 @@ export function Register(props: PaperProps) {
               }
               error={form.errors.username}
               radius="md"
+              disabled={registerFn.isPending}
             />
             <TextInput
               required
@@ -63,6 +88,7 @@ export function Register(props: PaperProps) {
               }
               error={form.errors.email}
               radius="md"
+              disabled={registerFn.isPending}
             />
             <PasswordInput
               required
@@ -74,6 +100,7 @@ export function Register(props: PaperProps) {
               }
               error={form.errors.password}
               radius="md"
+              disabled={registerFn.isPending}
             />
             <PasswordInput
               required
@@ -88,9 +115,10 @@ export function Register(props: PaperProps) {
               }
               error={form.errors.password_confirmation}
               radius="md"
+              disabled={registerFn.isPending}
             />
-            <Button type="submit" radius="sm">
-              Register
+            <Button type="submit" radius="sm" loading={registerFn.isPending}>
+              {registerFn.isPending ? 'Creating Account...' : 'Register'}
             </Button>
           </Stack>
         </form>

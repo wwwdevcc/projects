@@ -1,24 +1,28 @@
-import { StrictMode } from "react";
-import ReactDOM from "react-dom/client";
-import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { createRouter } from '@tanstack/react-router'
+import { StrictMode } from 'react'
+import ReactDOM from 'react-dom/client'
+import { AuthState } from '@/features/auth/hooks/use-auth'
+import { routeTree } from '@/routeTree.gen'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { RouterWithContext } from '@/router/RouterWithContext'
 
-// Import the generated route tree
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { routeTree } from "@/routeTree.gen";
+export const queryClient = new QueryClient()
 
-const queryClient = new QueryClient();
+export interface RouterContext {
+  queryClient: QueryClient
+  auth: AuthState
+}
 
-// Create a new router instance
-const router = createRouter({
+export const router = createRouter({
   routeTree,
   context: {
     queryClient,
+    // Will be provided by RouterWithContext component
+    auth: undefined!,
   },
-  defaultPreload: "intent",
-  // Since we're using React Query, we don't want loader calls to ever be stale
-  // This will ensure that the loader is always called when the route is preloaded or visited
+  defaultPreload: 'intent',
   defaultPreloadStaleTime: 0,
-});
+})
 
 declare module '@tanstack/react-router' {
   interface Register {
@@ -27,14 +31,14 @@ declare module '@tanstack/react-router' {
 }
 
 // Render the app
-const rootElement = document.getElementById("root")!;
+const rootElement = document.getElementById('root')!
 if (!rootElement.innerHTML) {
-  const root = ReactDOM.createRoot(rootElement);
+  const root = ReactDOM.createRoot(rootElement)
   root.render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
+        <RouterWithContext />
       </QueryClientProvider>
     </StrictMode>
-  );
+  )
 }

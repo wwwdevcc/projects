@@ -25,8 +25,10 @@ export const registerSchema = loginSchema
     path: ['password_confirmation'],
   })
 
-export const resetPasswordSchema = z
+export const passwordResetSchema = z
   .object({
+    email: z.string().email({ message: 'Invalid email address' }),
+    token: z.string(),
     password: z
       .string()
       .min(8, { message: 'Password must be at least 8 characters' }),
@@ -38,3 +40,7 @@ export const resetPasswordSchema = z
     message: "Passwords don't match",
     path: ['password_confirmation'],
   })
+
+export const forgotPasswordSchema = z.object({
+  email: z.string().email({ message: 'Invalid email address' }),
+})
