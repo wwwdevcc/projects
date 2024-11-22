@@ -11,7 +11,6 @@ The `Login` component allows users to enter their email and password to authenti
 - Form validation using Zod schema.
 - Conditional rendering of alerts based on URL search parameters.
 - Navigation to a registration page for new users.
-- A "Remember me" checkbox and a link for password recovery.
 
 Upon successful login, the user is redirected to a specified URL or the home page.
 
