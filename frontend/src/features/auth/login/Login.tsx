@@ -80,6 +80,7 @@ export function Login(props: PaperProps) {
               radius="md"
               disabled={login.isPending}
             />
+
             <PasswordInput
               required
               label="Password"
@@ -92,19 +93,16 @@ export function Login(props: PaperProps) {
               radius="md"
               disabled={login.isPending}
             />
-            <Flex justify="space-between">
-              <Checkbox label="Remember me?" />
-              <Link
-                from="/login"
-                to="/forgot-password"
-                style={{ color: 'inherit' }}
-              >
-                Forgot your password?
-              </Link>
-            </Flex>
             <Button type="submit" radius="sm" loading={login.isPending}>
               Login
             </Button>
+            <Link
+              from="/login"
+              to="/forgot-password"
+              style={{ color: 'inherit', alignSelf: 'end' }}
+            >
+              Forgot your password?
+            </Link>
           </Stack>
         </form>
       </Paper>
