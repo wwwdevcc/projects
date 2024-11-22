@@ -1,6 +1,8 @@
+import { useLogin } from '@/features/auth/api/auth'
 import { loginSchema } from '@/features/auth/shared/schema'
 import { LoginFormValues } from '@/features/auth/shared/types'
 import {
+  Alert,
   Button,
   Checkbox,
   Container,
@@ -14,10 +16,14 @@ import {
   Title,
 } from '@mantine/core'
 import { useForm, zodResolver } from '@mantine/form'
-import { Link } from '@tanstack/react-router'
-import classes from './Login.module.css'
+import { useDocumentTitle } from '@mantine/hooks'
+import { Link, useRouter, useSearch } from '@tanstack/react-router'
+import { CheckIcon } from 'lucide-react'
 
 export function Login(props: PaperProps) {
+  const searchParams = useSearch({ strict: false })
+  const login = useLogin()
+  const router = useRouter()
   const form = useForm<LoginFormValues>({
     initialValues: {
       email: '',
@@ -26,21 +32,41 @@ export function Login(props: PaperProps) {
     validate: zodResolver(loginSchema),
   })
 
+  const handleSubmit = async (values: LoginFormValues) => {
+    await login.mutateAsync(values)
+    try {
+      const searchParams = new URLSearchParams(window.location.search)
+      const redirectTo = searchParams.get('redirect') || '/'
+      router.history.push(redirectTo)
+    } catch (error) {
+      console.error('Login failed:', error)
+    }
+  }
+
+  useDocumentTitle('Login')
   return (
     <Container size="xs" mt={40}>
-      <Stack gap={4} mb={12}>
-        <Title ta="center" className={classes.title}>
-          Welcome back!
-        </Title>
+      <Stack gap={12} mb={12}>
+        <Title ta="center">Welcome back!</Title>
         <Text c="dimmed" size="sm" ta="center">
           Do not have an account yet?{' '}
-          <Link from="/login" to="/register" className={classes.unstyled_link}>
+          <Link from="/login" to="/register" style={{ color: 'inherit' }}>
             Register
           </Link>
         </Text>
+        {searchParams.verification === 'success' && (
+          <Alert
+            variant="light"
+            color="green"
+            title="Email verified successfully"
+            icon={<CheckIcon />}
+          >
+            Email verified successfully. You can now log in.
+          </Alert>
+        )}
       </Stack>
       <Paper radius="md" p="xl" withBorder {...props}>
-        <form onSubmit={form.onSubmit((values) => console.log(values))}>
+        <form onSubmit={form.onSubmit(handleSubmit)}>
           <Stack>
             <TextInput
               required
@@ -52,6 +78,7 @@ export function Login(props: PaperProps) {
               }
               error={form.errors.email}
               radius="md"
+              disabled={login.isPending}
             />
             <PasswordInput
               required
@@ -63,18 +90,19 @@ export function Login(props: PaperProps) {
               }
               error={form.errors.password}
               radius="md"
+              disabled={login.isPending}
             />
             <Flex justify="space-between">
               <Checkbox label="Remember me?" />
               <Link
                 from="/login"
                 to="/forgot-password"
-                className={classes.unstyled_link}
+                style={{ color: 'inherit' }}
               >
                 Forgot your password?
               </Link>
             </Flex>
-            <Button type="submit" radius="sm">
+            <Button type="submit" radius="sm" loading={login.isPending}>
               Login
             </Button>
           </Stack>

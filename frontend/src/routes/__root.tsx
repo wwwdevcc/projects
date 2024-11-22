@@ -1,29 +1,30 @@
 import { Layout } from '@/components/layout/Layout'
-import { theme } from '@/theme'
+import { theme } from '@/lib/theme'
 import { MantineProvider } from '@mantine/core'
 import '@mantine/core/styles.css'
-import { QueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { createRootRouteWithContext, Link } from '@tanstack/react-router'
+import { createRootRouteWithContext } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+import { QueryClient } from '@tanstack/react-query'
+import { AuthState } from '@/features/auth/hooks/use-auth'
+import '@mantine/notifications/styles.css'
+import { Notifications } from '@mantine/notifications'
+import { NotFound } from '@/components/NotFound'
 
-export const Route = createRootRouteWithContext<{
+export interface RouterContext {
   queryClient: QueryClient
-}>()({
+  auth: AuthState
+}
+
+export const Route = createRootRouteWithContext<RouterContext>()({
   component: RootComponent,
-  notFoundComponent: () => {
-    return (
-      <div>
-        <p>This is the notFoundComponent configured on root route</p>
-        <Link to="/">Start Over</Link>
-      </div>
-    )
-  },
+  notFoundComponent: NotFound,
 })
 
 function RootComponent() {
   return (
     <MantineProvider theme={theme} defaultColorScheme="auto">
+      <Notifications />
       <Layout />
       <ReactQueryDevtools buttonPosition="bottom-right" />
       <TanStackRouterDevtools />

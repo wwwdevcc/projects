@@ -11,19 +11,13 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as ResetPasswordImport } from './routes/reset-password'
 import { Route as RegisterImport } from './routes/register'
 import { Route as LoginImport } from './routes/login'
 import { Route as ForgotPasswordImport } from './routes/forgot-password'
 import { Route as IndexImport } from './routes/index'
+import { Route as PasswordResetTokenImport } from './routes/password-reset_.$token'
 
 // Create/Update Routes
-
-const ResetPasswordRoute = ResetPasswordImport.update({
-  id: '/reset-password',
-  path: '/reset-password',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const RegisterRoute = RegisterImport.update({
   id: '/register',
@@ -46,6 +40,12 @@ const ForgotPasswordRoute = ForgotPasswordImport.update({
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PasswordResetTokenRoute = PasswordResetTokenImport.update({
+  id: '/password-reset_/$token',
+  path: '/password-reset/$token',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -81,11 +81,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterImport
       parentRoute: typeof rootRoute
     }
-    '/reset-password': {
-      id: '/reset-password'
-      path: '/reset-password'
-      fullPath: '/reset-password'
-      preLoaderRoute: typeof ResetPasswordImport
+    '/password-reset_/$token': {
+      id: '/password-reset_/$token'
+      path: '/password-reset/$token'
+      fullPath: '/password-reset/$token'
+      preLoaderRoute: typeof PasswordResetTokenImport
       parentRoute: typeof rootRoute
     }
   }
@@ -98,7 +98,7 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
-  '/reset-password': typeof ResetPasswordRoute
+  '/password-reset/$token': typeof PasswordResetTokenRoute
 }
 
 export interface FileRoutesByTo {
@@ -106,7 +106,7 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
-  '/reset-password': typeof ResetPasswordRoute
+  '/password-reset/$token': typeof PasswordResetTokenRoute
 }
 
 export interface FileRoutesById {
@@ -115,7 +115,7 @@ export interface FileRoutesById {
   '/forgot-password': typeof ForgotPasswordRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
-  '/reset-password': typeof ResetPasswordRoute
+  '/password-reset_/$token': typeof PasswordResetTokenRoute
 }
 
 export interface FileRouteTypes {
@@ -125,16 +125,21 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/register'
-    | '/reset-password'
+    | '/password-reset/$token'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/forgot-password' | '/login' | '/register' | '/reset-password'
+  to:
+    | '/'
+    | '/forgot-password'
+    | '/login'
+    | '/register'
+    | '/password-reset/$token'
   id:
     | '__root__'
     | '/'
     | '/forgot-password'
     | '/login'
     | '/register'
-    | '/reset-password'
+    | '/password-reset_/$token'
   fileRoutesById: FileRoutesById
 }
 
@@ -143,7 +148,7 @@ export interface RootRouteChildren {
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
-  ResetPasswordRoute: typeof ResetPasswordRoute
+  PasswordResetTokenRoute: typeof PasswordResetTokenRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
@@ -151,7 +156,7 @@ const rootRouteChildren: RootRouteChildren = {
   ForgotPasswordRoute: ForgotPasswordRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
-  ResetPasswordRoute: ResetPasswordRoute,
+  PasswordResetTokenRoute: PasswordResetTokenRoute,
 }
 
 export const routeTree = rootRoute
@@ -168,7 +173,7 @@ export const routeTree = rootRoute
         "/forgot-password",
         "/login",
         "/register",
-        "/reset-password"
+        "/password-reset_/$token"
       ]
     },
     "/": {
@@ -183,8 +188,8 @@ export const routeTree = rootRoute
     "/register": {
       "filePath": "register.tsx"
     },
-    "/reset-password": {
-      "filePath": "reset-password.tsx"
+    "/password-reset_/$token": {
+      "filePath": "password-reset_.$token.tsx"
     }
   }
 }

@@ -1,3 +1,6 @@
+import { useForgotPassword } from '@/features/auth/api/auth'
+import { forgotPasswordSchema } from '@/features/auth/shared/schema'
+import { ForgotPasswordFormValues } from '@/features/auth/shared/types'
 import {
   Anchor,
   Box,
@@ -13,27 +16,23 @@ import {
 import { useForm, zodResolver } from '@mantine/form'
 import { Link } from '@tanstack/react-router'
 import { ArrowLeft } from 'lucide-react'
-import { z } from 'zod'
 import classes from './ForgotPassword.module.css'
-
-const schema = z.object({
-  email: z.string().email({ message: 'Invalid email address' }),
-})
-
-type ForgotPasswordFormValues = z.infer<typeof schema>
+import { useDocumentTitle } from '@mantine/hooks'
 
 export function ForgotPassword() {
+  const forgotPassword = useForgotPassword()
   const form = useForm<ForgotPasswordFormValues>({
     mode: 'uncontrolled',
     initialValues: {
       email: '',
     },
-    validate: zodResolver(schema),
+    validate: zodResolver(forgotPasswordSchema),
   })
 
   const handleSubmit = (values: ForgotPasswordFormValues) => {
-    console.log('Reset password for:', values.email)
+    forgotPassword.mutate(values)
   }
+  useDocumentTitle('Forgot Password')
 
   return (
     <Container size={460} my={30}>
@@ -51,6 +50,7 @@ export function ForgotPassword() {
             placeholder="me@mantine.dev"
             required
             key={form.key('email')}
+            disabled={forgotPassword.isPending}
             {...form.getInputProps('email')}
           />
           <Group justify="space-between" mt="lg" className={classes.controls}>
@@ -67,7 +67,11 @@ export function ForgotPassword() {
                 <Box ml={5}>Back to the login page</Box>
               </Center>
             </Anchor>
-            <Button type="submit" className={classes.control}>
+            <Button
+              type="submit"
+              className={classes.control}
+              loading={forgotPassword.isPending}
+            >
               Reset password
             </Button>
           </Group>
