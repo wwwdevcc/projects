@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,11 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 require __DIR__.'/auth.php';
+
+Route::resource('projects', ProjectController::class)
+    ->only(['index', 'show']);
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::resource('projects', ProjectController::class)
+        ->only(['store', 'update', 'destroy']);
+});
