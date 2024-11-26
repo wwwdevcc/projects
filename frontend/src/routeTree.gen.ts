@@ -8,8 +8,6 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
-
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
@@ -18,11 +16,7 @@ import { Route as IndexImport } from './routes/index'
 import { Route as GuestRegisterImport } from './routes/_guest/register'
 import { Route as GuestLoginImport } from './routes/_guest/login'
 import { Route as GuestForgotPasswordImport } from './routes/_guest/forgot-password'
-import { Route as GuestPasswordResetTokenImport } from './routes/_guest/password-reset._$token'
-
-// Create Virtual Routes
-
-const GuestPasswordResetImport = createFileRoute('/_guest/password-reset')()
+import { Route as GuestPasswordResetTokenImport } from './routes/_guest/password-reset.$token'
 
 // Create/Update Routes
 
@@ -35,12 +29,6 @@ const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
-} as any)
-
-const GuestPasswordResetRoute = GuestPasswordResetImport.update({
-  id: '/password-reset',
-  path: '/password-reset',
-  getParentRoute: () => GuestRoute,
 } as any)
 
 const GuestRegisterRoute = GuestRegisterImport.update({
@@ -62,8 +50,9 @@ const GuestForgotPasswordRoute = GuestForgotPasswordImport.update({
 } as any)
 
 const GuestPasswordResetTokenRoute = GuestPasswordResetTokenImport.update({
-  id: '/_$token',
-  getParentRoute: () => GuestPasswordResetRoute,
+  id: '/password-reset/$token',
+  path: '/password-reset/$token',
+  getParentRoute: () => GuestRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
@@ -105,48 +94,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GuestRegisterImport
       parentRoute: typeof GuestImport
     }
-    '/_guest/password-reset': {
-      id: '/_guest/password-reset'
-      path: '/password-reset'
-      fullPath: '/password-reset'
-      preLoaderRoute: typeof GuestPasswordResetImport
-      parentRoute: typeof GuestImport
-    }
-    '/_guest/password-reset/_$token': {
-      id: '/_guest/password-reset/_$token'
-      path: '/password-reset'
-      fullPath: '/password-reset'
+    '/_guest/password-reset/$token': {
+      id: '/_guest/password-reset/$token'
+      path: '/password-reset/$token'
+      fullPath: '/password-reset/$token'
       preLoaderRoute: typeof GuestPasswordResetTokenImport
-      parentRoute: typeof GuestPasswordResetRoute
+      parentRoute: typeof GuestImport
     }
   }
 }
 
 // Create and export the route tree
 
-interface GuestPasswordResetRouteChildren {
-  GuestPasswordResetTokenRoute: typeof GuestPasswordResetTokenRoute
-}
-
-const GuestPasswordResetRouteChildren: GuestPasswordResetRouteChildren = {
-  GuestPasswordResetTokenRoute: GuestPasswordResetTokenRoute,
-}
-
-const GuestPasswordResetRouteWithChildren =
-  GuestPasswordResetRoute._addFileChildren(GuestPasswordResetRouteChildren)
-
 interface GuestRouteChildren {
   GuestForgotPasswordRoute: typeof GuestForgotPasswordRoute
   GuestLoginRoute: typeof GuestLoginRoute
   GuestRegisterRoute: typeof GuestRegisterRoute
-  GuestPasswordResetRoute: typeof GuestPasswordResetRouteWithChildren
+  GuestPasswordResetTokenRoute: typeof GuestPasswordResetTokenRoute
 }
 
 const GuestRouteChildren: GuestRouteChildren = {
   GuestForgotPasswordRoute: GuestForgotPasswordRoute,
   GuestLoginRoute: GuestLoginRoute,
   GuestRegisterRoute: GuestRegisterRoute,
-  GuestPasswordResetRoute: GuestPasswordResetRouteWithChildren,
+  GuestPasswordResetTokenRoute: GuestPasswordResetTokenRoute,
 }
 
 const GuestRouteWithChildren = GuestRoute._addFileChildren(GuestRouteChildren)
@@ -157,7 +128,7 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof GuestForgotPasswordRoute
   '/login': typeof GuestLoginRoute
   '/register': typeof GuestRegisterRoute
-  '/password-reset': typeof GuestPasswordResetTokenRoute
+  '/password-reset/$token': typeof GuestPasswordResetTokenRoute
 }
 
 export interface FileRoutesByTo {
@@ -166,7 +137,7 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof GuestForgotPasswordRoute
   '/login': typeof GuestLoginRoute
   '/register': typeof GuestRegisterRoute
-  '/password-reset': typeof GuestPasswordResetTokenRoute
+  '/password-reset/$token': typeof GuestPasswordResetTokenRoute
 }
 
 export interface FileRoutesById {
@@ -176,8 +147,7 @@ export interface FileRoutesById {
   '/_guest/forgot-password': typeof GuestForgotPasswordRoute
   '/_guest/login': typeof GuestLoginRoute
   '/_guest/register': typeof GuestRegisterRoute
-  '/_guest/password-reset': typeof GuestPasswordResetRouteWithChildren
-  '/_guest/password-reset/_$token': typeof GuestPasswordResetTokenRoute
+  '/_guest/password-reset/$token': typeof GuestPasswordResetTokenRoute
 }
 
 export interface FileRouteTypes {
@@ -188,9 +158,15 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/login'
     | '/register'
-    | '/password-reset'
+    | '/password-reset/$token'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/forgot-password' | '/login' | '/register' | '/password-reset'
+  to:
+    | '/'
+    | ''
+    | '/forgot-password'
+    | '/login'
+    | '/register'
+    | '/password-reset/$token'
   id:
     | '__root__'
     | '/'
@@ -198,8 +174,7 @@ export interface FileRouteTypes {
     | '/_guest/forgot-password'
     | '/_guest/login'
     | '/_guest/register'
-    | '/_guest/password-reset'
-    | '/_guest/password-reset/_$token'
+    | '/_guest/password-reset/$token'
   fileRoutesById: FileRoutesById
 }
 
@@ -236,7 +211,7 @@ export const routeTree = rootRoute
         "/_guest/forgot-password",
         "/_guest/login",
         "/_guest/register",
-        "/_guest/password-reset"
+        "/_guest/password-reset/$token"
       ]
     },
     "/_guest/forgot-password": {
@@ -251,16 +226,9 @@ export const routeTree = rootRoute
       "filePath": "_guest/register.tsx",
       "parent": "/_guest"
     },
-    "/_guest/password-reset": {
-      "filePath": "_guest",
-      "parent": "/_guest",
-      "children": [
-        "/_guest/password-reset/_$token"
-      ]
-    },
-    "/_guest/password-reset/_$token": {
-      "filePath": "_guest/password-reset._$token.tsx",
-      "parent": "/_guest/password-reset"
+    "/_guest/password-reset/$token": {
+      "filePath": "_guest/password-reset.$token.tsx",
+      "parent": "/_guest"
     }
   }
 }

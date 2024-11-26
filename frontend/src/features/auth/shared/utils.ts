@@ -4,7 +4,7 @@ const AUTH_TOKEN_KEY = 'auth_token'
 
 export const auth = {
   getToken: () => {
-    const token = Cookies.get(AUTH_TOKEN_KEY)
+    const token = Cookies.get('auth_token')
     return token
   },
   setToken: (token: string) => {

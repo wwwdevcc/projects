@@ -4,8 +4,8 @@ import {
   ForgotPasswordFormValues,
   ForgotPasswordResponse,
   LoginFormValues,
-  PasswordResetFormValues,
   PasswordResetResponse,
+  PasswordResetSubmitValues,
   RegisterFormValues,
   User,
 } from '@/features/auth/shared/types'
@@ -30,14 +30,7 @@ export const userQuery = queryOptions({
     if (!auth.hasToken()) {
       return null
     }
-    const token = auth.getToken()
-    const response = await api
-      .get('user', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .json<User>()
+    const response = await api.get('user').json<User>()
     return response
   },
   retry: false,
@@ -73,19 +66,19 @@ export function useLogin() {
 }
 
 export function useRegister() {
-  const queryClient = useQueryClient()
-
+  const navigate = useNavigate()
   return useMutation({
     mutationFn: async (data: RegisterFormValues): Promise<AuthResponse> => {
       return await api.post('register', { json: data }).json()
     },
     onSuccess: (data) => {
-      queryClient.setQueryData(authKeys.user, data.user)
       notifications.show({
         title: 'Success',
         message: data.message,
         color: 'green',
       })
+
+      navigate({ to: '/login' })
     },
   })
 }
@@ -125,7 +118,7 @@ export function useResetPassword() {
 
   return useMutation({
     mutationFn: async (
-      data: PasswordResetFormValues
+      data: PasswordResetSubmitValues
     ): Promise<PasswordResetResponse> => {
       return await api.post('reset-password', { json: data }).json()
     },
@@ -141,7 +134,14 @@ export function useResetPassword() {
         password: variables.password,
       })
 
-      navigate({ to: '/' })
+      navigate({ to: '/login' })
+    },
+    onError: async () => {
+      notifications.show({
+        title: 'Failed',
+        message: 'Failed to reset password.',
+        color: 'red',
+      })
     },
   })
 }
