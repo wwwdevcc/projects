@@ -4,9 +4,7 @@ import { LoginFormValues } from '@/features/auth/shared/types'
 import {
   Alert,
   Button,
-  Checkbox,
   Container,
-  Flex,
   Paper,
   PaperProps,
   PasswordInput,
@@ -21,7 +19,7 @@ import { Link, useRouter, useSearch } from '@tanstack/react-router'
 import { CheckIcon } from 'lucide-react'
 
 export function Login(props: PaperProps) {
-  const searchParams = useSearch({ strict: false })
+  const searchParams = useSearch({ strict: false })  as { verification?: string };
   const login = useLogin()
   const router = useRouter()
   const form = useForm<LoginFormValues>({

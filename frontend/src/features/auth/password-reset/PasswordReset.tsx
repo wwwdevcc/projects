@@ -16,10 +16,10 @@ import classes from './PasswordReset.module.css'
 import { useDocumentTitle } from '@mantine/hooks'
 
 export function PasswordReset() {
-  const searchParams = useSearch({ strict: false })
+  const searchParams = useSearch({ strict: false })  as { email?: string };
   const resetPassword = useResetPassword()
 
-  const params = useParams({ from: '/password-reset_/$token' })
+  const params = useParams({ from: '/_guest/password-reset/_$token' }) as { token?: string };
   const email = searchParams.email
 
   const form = useForm<PasswordResetFormValues>({
