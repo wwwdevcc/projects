@@ -70,7 +70,6 @@ class ProjectController extends Controller
 
         $validatedData = $request->validate([
             'title' => 'sometimes|required|string|max:255',
-            'author' => 'sometimes|required|string|max:255',
             'description' => 'sometimes|required|string',
             'stack' => 'sometimes|required|string',
         ]);
