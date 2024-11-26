@@ -4,9 +4,7 @@ import { LoginFormValues } from '@/features/auth/shared/types'
 import {
   Alert,
   Button,
-  Checkbox,
   Container,
-  Flex,
   Paper,
   PaperProps,
   PasswordInput,
@@ -18,10 +16,8 @@ import {
 import { useForm, zodResolver } from '@mantine/form'
 import { useDocumentTitle } from '@mantine/hooks'
 import { Link, useRouter, useSearch } from '@tanstack/react-router'
-import { CheckIcon } from 'lucide-react'
 
 export function Login(props: PaperProps) {
-  const searchParams = useSearch({ strict: false })
   const login = useLogin()
   const router = useRouter()
   const form = useForm<LoginFormValues>({
@@ -31,6 +27,7 @@ export function Login(props: PaperProps) {
     },
     validate: zodResolver(loginSchema),
   })
+  const { verification } = useSearch({ from: '/_guest/login' })
 
   const handleSubmit = async (values: LoginFormValues) => {
     await login.mutateAsync(values)
@@ -48,24 +45,20 @@ export function Login(props: PaperProps) {
     <Container size="xs" mt={40}>
       <Stack gap={12} mb={12}>
         <Title ta="center">Welcome back!</Title>
+
         <Text c="dimmed" size="sm" ta="center">
           Do not have an account yet?{' '}
           <Link from="/login" to="/register" style={{ color: 'inherit' }}>
             Register
           </Link>
         </Text>
-        {searchParams.verification === 'success' && (
-          <Alert
-            variant="light"
-            color="green"
-            title="Email verified successfully"
-            icon={<CheckIcon />}
-          >
-            Email verified successfully. You can now log in.
-          </Alert>
-        )}
       </Stack>
       <Paper radius="md" p="xl" withBorder {...props}>
+        {verification === 'success' && (
+          <Alert color="green" mb="lg">
+            Your email has been successfully verified. Please login to continue.
+          </Alert>
+        )}
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <Stack>
             <TextInput
