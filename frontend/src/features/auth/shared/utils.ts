@@ -23,3 +23,22 @@ export const auth = {
     return hasToken
   },
 }
+
+export const passwordRequirements = [
+  { re: /.{8,}/, label: 'At least 8 characters long' },
+]
+
+export function testPasswordStrength(password: string) {
+  let multiplier = password.length > 5 ? 0 : 1
+
+  passwordRequirements.forEach((passwordRequirements) => {
+    if (!passwordRequirements.re.test(password)) {
+      multiplier += 1
+    }
+  })
+
+  return Math.max(
+    100 - (100 / (passwordRequirements.length + 1)) * multiplier,
+    10
+  )
+}
