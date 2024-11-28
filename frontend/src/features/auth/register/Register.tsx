@@ -17,6 +17,7 @@ import { Link, useNavigate } from '@tanstack/react-router'
 import { useRegister } from '@/features/auth/api/auth'
 import { AlertCircle } from 'lucide-react'
 import { useDocumentTitle } from '@mantine/hooks'
+import ValidatedPasswordInput from '../components/ValidatedPasswordInput'
 
 export function Register(props: PaperProps) {
   const form = useForm<RegisterFormValues>({
@@ -90,16 +91,15 @@ export function Register(props: PaperProps) {
               radius="md"
               disabled={registerFn.isPending}
             />
-            <PasswordInput
+            <ValidatedPasswordInput
               required
               label="Password"
               placeholder="Your password"
-              value={form.values.password}
+              value={form.values.password} 
               onChange={(event) =>
                 form.setFieldValue('password', event.currentTarget.value)
               }
               error={form.errors.password}
-              radius="md"
               disabled={registerFn.isPending}
             />
             <PasswordInput
