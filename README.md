@@ -12,6 +12,13 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 In order to ensure that the ProjecHub is welcoming to all, please review and abide by the [Code of Conduct](CODE_OF_CONDUCT.md).
 
+## Local setup
+
+Resources for setting up the project locally are available in the README files within the `frontend` and `backend` directories.
+
+### [Backend setup](./backend/README.md)
+### [Frontend setup](./frontend/README.md)
+
 ## License
 
 ProjectHub is open-sourced software licensed under the [MIT license](LICENSE).
