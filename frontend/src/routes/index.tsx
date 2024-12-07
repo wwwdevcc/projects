@@ -1,4 +1,4 @@
-import { useDocumentTitle } from '@mantine/hooks'
+import Home from '@/features/home/home-page/Home'
 import { createFileRoute, redirect } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/')({
@@ -18,15 +18,15 @@ export const Route = createFileRoute('/')({
       }
     }
   },
-  component: Index,
+  component: Home,
 })
 
-function Index() {
-  useDocumentTitle('Homepage')
-  return (
-    <>
-      <title>Homepage</title>
-      <div>Welcome Home!</div>
-    </>
-  )
-}
+// function Index() {
+//   useDocumentTitle('Homepage')
+//   return (
+//     <>
+//       <title>Homepage</title>
+//       <div>Welcome Home!</div>
+//     </>
+//   )
+// }
