@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use Illuminate\Http\Request;
+use App\Http\Requests\ProjectRequest;
 
 class ProjectController extends Controller
 {
@@ -12,33 +12,15 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::with('user')->paginate(10);
+        $projects = Project::with('user')
+            ->latest()
+            ->paginate(10);
 
         return response()->json([
             'success' => true,
             'data' => $projects,
             'message' => 'Projects retrieved successfully.'
         ], 200);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'stack' => 'required|string'
-        ]);
-
-        $project = auth()->user()->projects()->create($validatedData);
-
-        return response()->json([
-            'success' => true,
-            'data' => $project,
-            'message' => 'Project created successfully.'
-        ], 201);
     }
 
     /**
@@ -56,29 +38,53 @@ class ProjectController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Store a newly created resource in storage.
      */
-    public function update(Request $request, Project $project)
+    public function store(ProjectRequest $request)
     {
-        // 403 Forbidden. The user does not have permissions to edit this project.
-        if (auth()->id() !== $project->user_id) {
+        $this->authorize('create', Project::class);
+        
+        $userId = auth()->id();
+        
+        if (!$userId) {
             return response()->json([
                 'success' => false,
-                'message' => 'Unauthorized to update this project.'
-            ], 403);
+                'message' => 'No authenticated user found.'
+            ], 401);
         }
 
-        $validatedData = $request->validate([
-            'title' => 'sometimes|required|string|max:255',
-            'description' => 'sometimes|required|string',
-            'stack' => 'sometimes|required|string',
-        ]);
+        try {
+            $project = Project::create(array_merge(
+                $request->validated(),
+                ['user_id' => $userId]
+            ));
+            
+            return response()->json([
+                'success' => true,
+                'data' => $project->load('user'),
+                'message' => 'Project created successfully.'
+            ], 201);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Failed to create project.'
+            ], 500);
+        }
+    }
 
-        $project->update($validatedData);
 
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(ProjectRequest $request, Project $project)
+    {
+        $this->authorize('update', $project);
+
+        $project->update($request->validated());
+        
         return response()->json([
             'success' => true,
-            'data' => $project,
+            'data' => $project->fresh()->load('user'),
             'message' => 'Project updated successfully.'
         ], 200);
     }
@@ -88,18 +94,13 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        if (auth()->id() !== $project->user_id) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Unauthorized to delete this project.'
-            ], 403);
-        }
+        $this->authorize('delete', $project);
 
         $project->delete();
 
         return response()->json([
             'success' => true,
             'message' => 'Project deleted successfully.'
-        ], 200);
+        ], 204);
     }
 }
